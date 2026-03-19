@@ -880,71 +880,19 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
 
   <section class="contact-section">
     <div style="max-width:680px;margin:0 auto">
-      <div class="reveal">
-        <form onsubmit="handleContactSubmit(event)">
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Business Name</label><input class="form-input" type="text" placeholder="Acme Inc." required/></div>
-            <div class="form-group"><label class="form-label">Owner Name</label><input class="form-input" type="text" placeholder="Jane Smith" required/></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="(212) 555-0100" required/></div>
-            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="jane@acmeinc.com" required/></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Monthly Revenue (approximate)</label>
-              <select class="form-select">
-                <option value="">Select range…</option>
-                <option>Under $15,000</option>
-                <option>$15,000 – $50,000</option>
-                <option>$50,000 – $100,000</option>
-                <option>$100,000 – $250,000</option>
-                <option>$250,000 – $500,000</option>
-                <option>Over $500,000</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Time in Business</label>
-              <select class="form-select">
-                <option value="">Select…</option>
-                <option>Less than 6 months</option>
-                <option>6–12 months</option>
-                <option>1–2 years</option>
-                <option>2–5 years</option>
-                <option>5+ years</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Amount Requested</label>
-            <select class="form-select">
-              <option value="">Select range…</option>
-              <option>$5,000 – $25,000</option>
-              <option>$25,000 – $50,000</option>
-              <option>$50,000 – $100,000</option>
-              <option>$100,000 – $250,000</option>
-              <option>$250,000 – $500,000</option>
-              <option>$500,000+</option>
-            </select>
-          </div>
-
-          <div class="upload-box" onclick="document.getElementById('file-input').click()">
-            <div class="upload-icon">📁</div>
-            <div class="upload-title">Upload Bank Statements</div>
-            <div class="upload-sub">3 most recent months · PDF or image</div>
-            <input type="file" id="file-input" style="display:none" multiple accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this)"/>
-            <div id="upload-status" style="margin-top:1rem;font-size:.82rem;color:var(--gold)"></div>
-          </div>
-
-          <div class="form-group"><label class="form-label">Notes (optional)</label><textarea class="form-textarea" placeholder="Tell us about your current situation, any existing positions, or questions you have…"></textarea></div>
-          <button type="submit" class="form-submit">Submit Application</button>
-          <div class="secure-note"><span>🔒</span><span>Secure · No obligation · Same-day response</span></div>
-        </form>
-
-        <div class="privacy-box">
-          <p>By submitting, you agree that your information will be used solely to evaluate your application. We do not sell or share your information. Fast Capital Advance is a direct funder — your application is reviewed in-house and is never shared with third-party brokers.</p>
-        </div>
-      </div>
+      <iframe
+        id="JotFormIFrame-241556993614163"
+        title="Fast Capital Application (Final)"
+        onload="window.parent.scrollTo(0,0)"
+        allowtransparency="true"
+        allow="geolocation; microphone; camera; fullscreen; payment"
+        src="https://form.jotform.com/241556993614163"
+        frameborder="0"
+        style="min-width:100%;max-width:100%;height:539px;border:none;"
+        scrolling="no"
+      ></iframe>
+      <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
+      <script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-241556993614163']", "https://form.jotform.com/")</script>
     </div>
   </section>
 </div>
@@ -1065,25 +1013,6 @@ function toggleFaq(el) {
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
   if (!isOpen) el.classList.add('open');
-}
-
-// ── FILE UPLOAD ──
-function handleUpload(input) {
-  const files = Array.from(input.files);
-  const status = document.getElementById('upload-status');
-  if (files.length > 0) {
-    status.textContent = `✓ ${files.length} file${files.length > 1 ? 's' : ''} selected: ${files.map(f => f.name).join(', ')}`;
-  }
-}
-
-// ── CONTACT FORM ──
-function handleContactSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = '✓ Application Submitted — We\'ll respond same day';
-  btn.style.background = '#2563EB';
-  btn.style.color = '#fff';
-  btn.disabled = true;
 }
 
 // ── NAV SHRINK ──
