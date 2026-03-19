@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Fast Capital Advance — Direct MCA Funder</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1E293B;
+  --navy2:#334155;
+  --navy3:#475569;
+  --gold:#2563EB;
+  --gold2:#3B82F6;
+  --cream:#F8FAFC;
+  --white:#FFFFFF;
+  --gray:#64748B;
+  --lgray:#E2E8F0;
+  --border:rgba(37,99,235,0.12);
+  --borderdark:rgba(255,255,255,0.08);
+  --shadow-sm:0 2px 8px rgba(30,41,59,0.06);
+  --shadow-md:0 8px 24px rgba(30,41,59,0.08);
+  --shadow-lg:0 16px 48px rgba(30,41,59,0.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 5%;
+  background:rgba(30,41,59,0.75);
+  backdrop-filter:blur(20px) saturate(1.8);
+  -webkit-backdrop-filter:blur(20px) saturate(1.8);
+  border-bottom:1px solid rgba(37,99,235,0.15);
+  transition:padding .3s, background .3s;
+}
+nav.scrolled{background:rgba(30,41,59,0.88)}
+.logo{font-size:1.25rem;color:#fff;letter-spacing:.02em}
+.nav-links{display:flex;align-items:center;gap:0}
+.nav-links a{
+  color:rgba(255,255,255,.65);
+  font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.5rem 1rem;
+  transition:color .2s;
+  white-space:nowrap;
+}
+.nav-links a{position:relative}
+.nav-links a:not(.nav-cta)::after{content:'';position:absolute;bottom:0;left:1rem;width:0;height:2px;background:var(--gold);transition:width .3s ease}
+.nav-links a:not(.nav-cta):hover::after,.nav-links a:not(.nav-cta).active::after{width:calc(100% - 2rem)}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{
+  background:var(--gold)!important;color:#fff!important;
+  padding:.55rem 1.3rem!important;margin-left:.5rem;
+  font-weight:500!important;letter-spacing:.1em!important;
+  animation:ctaPulse 3s ease-in-out infinite;
+}
+.nav-cta:hover{background:var(--gold2)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem}
+.hamburger span{width:22px;height:2px;background:#fff;transition:.3s}
+
+/* ── PAGES ── */
+.page{display:none;padding-top:70px;min-height:100vh}
+.page.active{display:block}
+
+/* ── SHARED ── */
+.section{padding:6rem 5%}
+.section-inner{max-width:1140px;margin:0 auto}
+.label{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;font-weight:500}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.15;color:var(--navy);margin-bottom:1.2rem;position:relative;padding-bottom:.8rem}
+.h2::after{content:'';display:block;width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),rgba(74,158,255,0.6));margin-top:.6rem}
+.reveal.visible .h2::after{animation:h2UnderlineGrow .6s cubic-bezier(0.16,1,0.3,1) forwards}
+.h2.light::after{opacity:.5}
+.phases-header .h2::after{margin-left:auto;margin-right:auto}
+.approach-hero .h2::after{margin-left:auto;margin-right:auto}
+.h2.light{color:#fff}
+.body-text{font-size:1rem;line-height:1.85;color:var(--gray);max-width:580px}
+.divider{width:36px;height:2px;background:var(--gold);margin:1.8rem 0}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;padding:.85rem 2rem;border-radius:6px;transition:.2s;cursor:pointer;border:none;font-family:'Outfit',sans-serif;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,0.25),transparent);transition:none}
+.btn:hover::before{animation:btnShine .5s ease forwards}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 15px rgba(37,99,235,0.35)}
+.btn-gold:hover{background:linear-gradient(135deg,var(--gold2),var(--gold));transform:translateY(-3px);box-shadow:0 8px 25px rgba(37,99,235,0.45)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.reveal{opacity:0;transform:translateY(40px) scale(0.96);transition:opacity .7s cubic-bezier(0.16,1,0.3,1),transform .7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── HOME ── */
+#home-hero{
+  min-height:100vh;
+  background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80') center/cover no-repeat;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 5%;position:relative;overflow:hidden;
+}
+#home-hero::after{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:600px;height:600px;border-radius:50%;
+  border:1px solid rgba(37,99,235,0.25);
+  box-shadow:inset 0 0 0 1px rgba(37,99,235,0.08);
+  pointer-events:none;
+  animation:slowSpin 60s infinite linear;
+}
+#home-hero::before{
+  content:'';position:absolute;bottom:-80px;left:-60px;
+  width:350px;height:350px;border-radius:50%;
+  border:1px solid rgba(37,99,235,0.2);
+  box-shadow:inset 0 0 0 1px rgba(37,99,235,0.06);
+  pointer-events:none;z-index:1;
+  animation:slowSpin 45s infinite linear reverse;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.12) 1px,transparent 1px);
+  background-size:32px 32px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 40%,transparent 100%);
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 40%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;right:-10%;top:50%;transform:translateY(-50%);
+  width:700px;height:700px;
+  background:radial-gradient(ellipse,rgba(37,99,235,.15) 0%,transparent 55%),radial-gradient(ellipse at 40% 60%,rgba(74,158,255,.06) 0%,transparent 50%);
+  pointer-events:none;
+  animation:glowPulse 4s ease-in-out infinite;
+}
+.hero-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(37,99,235,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(74,158,255,0.04) 0%, transparent 50%);
+  pointer-events:none;z-index:1;
+}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-eyebrow{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem;opacity:0;animation:fadeUp .8s ease .2s forwards}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.1;color:#fff;margin-bottom:1.8rem;opacity:0;animation:fadeUp .9s ease .35s forwards;text-shadow:0 2px 40px rgba(0,0,0,0.3)}
+.hero-title em{font-style:italic;background:linear-gradient(90deg,var(--gold),#60A5FA,var(--gold2),var(--gold));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite}
+.hero-sub{font-size:1.05rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.55);max-width:540px;margin-bottom:2.8rem;opacity:0;animation:fadeUp .9s ease .5s forwards}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .9s ease .65s forwards}
+.hero-note{margin-top:3rem;font-size:.78rem;letter-spacing:.06em;color:rgba(255,255,255,.3);opacity:0;animation:fadeUp .9s ease .8s forwards}
+.hero-note span{color:var(--gold);margin-right:.4rem}
+
+.stats-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(37,99,235,0.2);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.stat-item{padding:1.6rem 5%;border-right:1px solid rgba(37,99,235,0.1);transition:background .3s}
+.stat-item:hover{background:rgba(37,99,235,0.06)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);line-height:1;text-shadow:0 0 30px rgba(37,99,235,0.5),0 0 60px rgba(37,99,235,0.2)}
+.stat-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:.3rem}
+
+/* Problem section */
+.problem-section{background:var(--cream);position:relative;overflow:hidden}
+.problem-section::before{content:'01';position:absolute;top:-20px;left:-10px;font-family:'Playfair Display',serif;font-size:18rem;font-weight:700;color:rgba(30,41,59,0.03);line-height:1;pointer-events:none}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1140px;margin:0 auto}
+.problem-list{display:flex;flex-direction:column;gap:1rem;margin:2rem 0}
+.problem-item{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem;background:#fff;border-left:3px solid #F59E0B;border-radius:8px;box-shadow:var(--shadow-sm)}
+.problem-item-icon{font-size:1.1rem;min-width:28px}
+.problem-item-text{font-size:.92rem;line-height:1.6;color:var(--gray)}
+.problem-answer{background:var(--navy);color:#fff;padding:2.5rem;border-radius:8px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.problem-answer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)}
+.problem-answer h3{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;color:#fff;margin-bottom:1rem;line-height:1.3}
+.problem-answer p{font-size:.93rem;line-height:1.75;color:rgba(255,255,255,.6);margin-bottom:1.5rem}
+.diff-tag{display:inline-block;background:var(--gold);color:#fff;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border-radius:6px;font-weight:500}
+
+/* 3 phases */
+.phases-section{background:var(--navy)}
+.phases-header{text-align:center;margin-bottom:4rem;max-width:640px;margin-left:auto;margin-right:auto}
+.phases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05)}
+.phase-card{background:rgba(30,41,59,0.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:3rem 2.5rem;position:relative;overflow:hidden;border:1px solid rgba(37,99,235,0.08);transition:border-color .3s,transform .3s,box-shadow .3s}
+.phase-card:hover{border-color:rgba(37,99,235,0.3);transform:translateY(-4px);box-shadow:0 8px 30px rgba(37,99,235,0.15)}
+.phase-num{font-family:'Playfair Display',serif;font-size:5rem;font-weight:400;color:rgba(37,99,235,.15);text-shadow:0 0 40px rgba(37,99,235,0.1);position:absolute;top:1rem;right:1.5rem;line-height:1}
+.phase-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.phase-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;color:#fff;margin-bottom:1rem}
+.phase-desc{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.5)}
+.phase-connector{display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:rgba(37,99,235,.3);position:absolute;right:-1px;top:50%;transform:translateY(-50%)}
+.phases-section{position:relative}
+.phases-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 42px);pointer-events:none}
+
+/* CTA strip */
+.cta-strip{background:linear-gradient(135deg,rgba(37,99,235,0.95),rgba(59,130,246,0.9)),url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80') center/cover no-repeat;padding:4rem 5%;text-align:center;position:relative;overflow:hidden}
+.cta-stripe-overlay{position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.04) 20px,rgba(255,255,255,0.04) 22px);pointer-events:none}
+.cta-strip::before{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);pointer-events:none;animation:slowSpin 40s infinite linear}
+.cta-strip::after{content:'';position:absolute;left:-40px;bottom:-40px;width:140px;height:140px;border-radius:50%;border:1px solid rgba(255,255,255,0.08);pointer-events:none}
+.cta-strip h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;color:#fff;margin-bottom:.8rem;text-shadow:0 2px 20px rgba(0,0,0,0.25),0 4px 40px rgba(0,0,0,0.1);position:relative}
+.cta-strip p{color:rgba(255,255,255,.8);font-size:1rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+.btn-navy{background:#fff;color:var(--navy)}
+.btn-navy:hover{background:var(--cream)}
+
+/* ── APPROACH ── */
+.approach-hero{background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1920&q=80') center/cover no-repeat;padding:8rem 5% 5rem;text-align:center}
+.approach-hero .h2{color:#fff}
+.approach-hero .body-text{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
+.approach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:1140px;margin:0 auto;padding:5rem 5%}
+.approach-card{background:#fff;padding:2.8rem;border-radius:8px;position:relative;overflow:hidden;transition:.3s;box-shadow:var(--shadow-sm);border:1px solid var(--lgray);background-image:linear-gradient(#fff,#fff);background-origin:border-box;background-clip:padding-box}
+.approach-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;background-image:linear-gradient(135deg,#fff 0%,#F5F7FA 100%),linear-gradient(135deg,var(--gold),#60A5FA);background-origin:border-box,border-box;background-clip:padding-box,border-box}
+.approach-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent);opacity:0;transition:.3s}
+.approach-card:hover::after{opacity:1}
+.approach-icon{font-size:1.8rem;margin-bottom:1.5rem}
+.approach-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500;color:var(--navy);margin-bottom:.8rem}
+.approach-text{font-size:.9rem;line-height:1.75;color:var(--gray)}
+.approach-note{font-size:.78rem;margin-top:1rem;color:var(--gold);font-style:italic}
+
+.philosophy-section{background:var(--cream);padding:5rem 5%;position:relative;overflow:hidden}
+.philosophy-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(30,41,59,0.06) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+.philosophy-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.philosophy-quote{font-family:'Playfair Display',serif;font-size:1.6rem;font-style:italic;font-weight:400;line-height:1.5;color:var(--navy);border-left:3px solid var(--gold);padding-left:2rem;margin-bottom:2rem}
+.checklist{display:flex;flex-direction:column;gap:.9rem}
+.check-item{display:flex;align-items:flex-start;gap:.8rem;font-size:.92rem;color:var(--gray);line-height:1.6}
+.check-dot{width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;margin-top:.1rem;transition:transform .2s}
+.check-item:hover .check-dot{transform:scale(1.2)}
+
+/* ── PROGRAMS ── */
+.programs-hero{background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?w=1920&q=80') center/cover no-repeat;padding:8rem 5% 5rem;text-align:center}
+.programs-hero .h2{color:#fff}
+.programs-hero .body-text{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--lgray);max-width:1140px;margin:4rem auto 0;padding:0 5%}
+.prog-card{background:#fff;padding:2.8rem 2.5rem;position:relative;border-top:3px solid transparent;background-image:linear-gradient(#fff,#fff),linear-gradient(90deg,var(--gold),var(--gold2));background-origin:padding-box,border-box;background-clip:padding-box,border-box;transition:transform .3s,box-shadow .3s;overflow:hidden}
+.prog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent);opacity:0;transition:.3s}
+.prog-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);background-image:linear-gradient(135deg,#fff 0%,#F5F7FA 100%),linear-gradient(90deg,var(--gold),var(--gold2))}
+.prog-card:hover::after{opacity:1}
+.prog-icon{font-size:2rem;margin-bottom:1.5rem}
+.prog-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500;color:var(--navy);margin-bottom:.5rem}
+.prog-tag{display:inline-block;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;background:var(--cream);color:var(--gray);padding:.2rem .6rem;border-radius:6px;margin-bottom:1rem}
+.prog-desc{font-size:.88rem;line-height:1.75;color:var(--gray);margin-bottom:1.5rem}
+.prog-works{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:.5rem}
+.prog-list{font-size:.85rem;color:var(--gray);line-height:1.9}
+.prog-list li{list-style:none;padding-left:1rem;position:relative}
+.prog-list li::before{content:'✓';position:absolute;left:0;color:var(--gold);font-size:.7rem}
+.prog-not{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#e5342a;margin:.8rem 0 .4rem}
+.prog-list.bad li::before{content:'✗';color:#e5342a}
+
+.programs-note{max-width:1140px;margin:3rem auto;padding:0 5%}
+.programs-note-box{background:var(--navy);padding:2.5rem;border-radius:8px;display:flex;align-items:flex-start;gap:1.5rem;box-shadow:var(--shadow-md)}
+.note-icon{font-size:1.5rem;min-width:36px}
+.note-text h4{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;margin-bottom:.5rem}
+.note-text p{font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.55)}
+
+.programs-banner{max-width:1140px;margin:0 auto;padding:2rem 5%}
+.programs-banner-inner{background:var(--cream);border:1px solid var(--lgray);border-left:3px solid var(--gold);padding:1.5rem 2rem;border-radius:8px;font-size:.9rem;color:var(--gray);line-height:1.7}
+.programs-banner-inner strong{color:var(--navy)}
+
+/* ── CREDIT TIERS ── */
+.tiers-hero{background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?w=1920&q=80') center/cover no-repeat;padding:8rem 5% 5rem;text-align:center}
+.tiers-hero .h2{color:#fff}
+.tiers-hero .body-text{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
+.tiers-section{padding:5rem 5%}
+.tiers-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:1140px;margin:0 auto}
+.tiers-grid-3{grid-template-columns:repeat(3,1fr)}
+.tier-card{border-radius:8px;overflow:hidden;box-shadow:var(--shadow-md);transition:transform .3s,box-shadow .3s;border:1px solid transparent}
+.tier-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(30,41,59,0.12),0 0 0 1px rgba(37,99,235,0.15)}
+.tier-header{padding:2rem 2.5rem;display:flex;align-items:center;gap:1.2rem;position:relative;overflow:hidden}
+.tier-header::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.06) 45%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.06) 55%,transparent 60%);background-size:200% 100%;animation:shimmer 6s ease-in-out infinite}
+.tier-badge{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;flex-shrink:0}
+.tier-a .tier-header{background:var(--navy)}
+.tier-a .tier-badge{background:var(--gold);color:var(--navy)}
+.tier-b .tier-header{background:#334155}
+.tier-b .tier-badge{background:#4a9eff;color:#fff}
+.tier-c .tier-header{background:#1E293B}
+.tier-c .tier-badge{background:#f59e0b;color:#fff}
+.tier-d .tier-header{background:#2a1f1f}
+.tier-d .tier-badge{background:#e5342a;color:#fff}
+.tier-header-info h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:.2rem}
+.tier-range{font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.1em}
+.tier-body{background:#fff;border:1px solid var(--lgray);border-top:none;padding:2rem 2.5rem}
+.tier-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.2rem}
+.tier-opt{display:flex;align-items:center;gap:.8rem;font-size:.88rem;color:var(--gray)}
+.tier-opt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tier-note{font-size:.78rem;color:var(--gray);font-style:italic;border-top:1px solid var(--lgray);padding-top:.8rem;margin-top:.5rem}
+
+.tiers-disclaimer{max-width:1140px;margin:2rem auto;padding:0 5%}
+.disclaimer-box{background:var(--cream);border:1px solid var(--lgray);border-left:3px solid var(--gold);padding:1.5rem 2rem;border-radius:8px;font-size:.85rem;color:var(--gray);line-height:1.7}
+
+.approval-factors{background:var(--navy);padding:5rem 5%}
+.factors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1140px;margin:3rem auto 0}
+@media(max-width:900px){.factors-grid{grid-template-columns:1fr}}
+.factor-card{background:rgba(255,255,255,.04);border:1px solid var(--borderdark);padding:2rem;border-radius:8px;transition:background .3s,border-color .3s,transform .3s}
+.factor-card:hover{background:rgba(37,99,235,0.06);border-color:rgba(37,99,235,0.2);transform:translateY(-2px)}
+.factor-icon{font-size:1.3rem;margin-bottom:1rem}
+.factor-title{font-size:.88rem;font-weight:500;color:#fff;margin-bottom:.5rem}
+.factor-text{font-size:.82rem;line-height:1.65;color:rgba(255,255,255,.45)}
+
+/* ── FAQ ── */
+.faq-hero{background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1920&q=80') center/cover no-repeat;padding:8rem 5% 5rem;text-align:center}
+.faq-hero .h2{color:#fff}
+.faq-hero .body-text{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
+.faq-section{padding:5rem 5%;background:var(--white);position:relative;overflow:hidden}
+.faq-section::before{content:'?';position:absolute;bottom:-40px;right:-20px;font-family:'Playfair Display',serif;font-size:22rem;font-weight:700;color:rgba(30,41,59,0.025);line-height:1;pointer-events:none}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:1140px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid var(--lgray);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.faq-q{padding:1.5rem 2rem;font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:400;transition:.2s}
+.faq-q:hover{background:var(--cream)}
+.faq-q::after{content:'+';font-size:1.3rem;color:var(--gold);flex-shrink:0;transition:.3s}
+.faq-item.open .faq-q::after{content:'−'}
+.faq-a{max-height:0;overflow:hidden;padding:0 2rem;font-size:.88rem;line-height:1.8;color:var(--gray);border-top:1px solid var(--lgray);transition:max-height .4s ease,padding .4s ease;opacity:0}
+.faq-item.open .faq-a{max-height:300px;padding:1.2rem 2rem 1.5rem;opacity:1;transition:max-height .4s ease,padding .4s ease,opacity .3s ease .1s}
+
+/* ── CONTACT / UPLOAD ── */
+.contact-hero{background:linear-gradient(180deg,rgba(30,41,59,0.95) 0%,rgba(30,41,59,0.6) 60%,rgba(248,250,252,0.2) 100%),url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&q=80') center/cover no-repeat;padding:8rem 5% 5rem;text-align:center}
+.contact-hero .h2{color:#fff}
+.contact-hero .body-text{margin:0 auto;text-align:center;color:rgba(255,255,255,.55)}
+.contact-section{padding:5rem 5%;background:var(--white)}
+.upload-box{background:#fff;border:2px dashed var(--lgray);border-radius:8px;padding:3rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:1.5rem;animation:uploadPulse 3s ease-in-out infinite}
+.upload-box:hover{border-color:var(--gold);background:var(--cream)}
+.upload-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.upload-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:.5rem}
+.upload-sub{font-size:.82rem;color:var(--gray)}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);font-weight:500}
+.form-input,.form-select,.form-textarea{
+  background:#fff;border:1px solid var(--lgray);
+  color:var(--navy);padding:.85rem 1rem;
+  font-family:'Outfit',sans-serif;font-size:.92rem;
+  border-radius:6px;outline:none;
+  transition:border-color .2s;
+  width:100%;
+}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(30,41,59,.3)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(37,99,235,0.15)}
+.form-textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;padding:1rem;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:6px;transition:.2s;margin-top:.5rem;position:relative;overflow:hidden}
+.form-submit::before{content:'';position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,0.25),transparent)}
+.form-submit:hover::before{animation:btnShine .5s ease forwards}
+.form-submit:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.secure-note{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--gray);margin-top:.8rem;justify-content:center}
+.secure-note span:first-child{font-size:1rem}
+.privacy-box{background:var(--navy);border-radius:8px;padding:1.8rem;margin-top:1.5rem}
+.privacy-box p{font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.5)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--cream);
+  border-top:1px solid var(--lgray);
+  padding:4rem 5% 2rem;
+  position:relative;overflow:hidden;
+}
+footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;height:300px;background:radial-gradient(ellipse,rgba(37,99,235,0.03) 0%,transparent 70%);pointer-events:none}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1140px;margin:0 auto;padding-bottom:3rem;border-bottom:1px solid var(--lgray)}
+.footer-brand .logo{font-size:1.15rem;display:block;margin-bottom:1rem}
+.footer-tagline{font-size:.82rem;line-height:1.7;color:var(--gray);max-width:260px}
+.footer-col h4{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--navy);margin-bottom:1.2rem}
+.footer-col a{display:block;font-size:.82rem;color:var(--gray);margin-bottom:.6rem;transition:.2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:1140px;margin:2rem auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.75rem;color:var(--gray);opacity:.7}
+.footer-disc{font-size:.72rem;color:var(--gray);opacity:.6;max-width:600px;line-height:1.6}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes glowPulse{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes uploadPulse{0%,100%{border-color:var(--lgray)}50%{border-color:var(--gold)}}
+@keyframes btnShine{0%{left:-75%}100%{left:125%}}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes barGrow{from{width:0}to{width:82%}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,0.5)}70%{box-shadow:0 0 0 10px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+@keyframes h2UnderlineGrow{from{width:0}to{width:60px}}
+
+/* ── HERO FLOATING CARDS ── */
+.hero-float-cards{position:absolute;right:6%;top:50%;transform:translateY(-55%);z-index:3;pointer-events:none}
+.hero-card{
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;padding:2rem 2.2rem;
+  color:#fff;min-width:280px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.hero-card-primary{animation:floatCard 6s ease-in-out infinite}
+.hero-card-secondary{
+  animation:floatCard 6s ease-in-out 1.5s infinite;
+  margin-top:-2rem;margin-left:-3rem;
+  opacity:.85;transform:scale(.9);
+  min-width:240px;padding:1.5rem 1.8rem;
+}
+.hero-card-status{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.hero-card-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.hero-card-amount{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;margin-bottom:.3rem}
+.hero-card-detail{font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem}
+.hero-card-bar{height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.hero-card-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:4px;animation:barGrow 2s ease-out 1s forwards;width:0}
+.hero-card-secondary .hero-card-amount{font-size:1.6rem}
+.hero-card-secondary .hero-card-detail{margin-bottom:0}
+
+/* ── SECTION DIVIDERS ── */
+.section-divider{position:relative;width:100%;overflow:hidden;line-height:0;margin-top:-1px}
+.section-divider svg{display:block;width:100%;height:60px}
+.section-divider-flip{margin-bottom:-1px;margin-top:0}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-float-cards{display:none}
+  .nav-links{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--navy);padding:1.5rem;gap:.5rem;z-index:199}
+  .nav-links.open{display:flex}
+  .nav-links a{border-bottom:1px solid var(--borderdark);padding:.8rem 0}
+  .hamburger{display:flex}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .problem-grid,.phases-grid,.approach-grid,.programs-grid,.tiers-grid,.tiers-grid-3,.faq-grid,.philosophy-inner,.footer-top,.form-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a class="logo" href="#" onclick="showPage('home')" style="display:flex;align-items:center">
+    <svg viewBox="0 0 270 40" xmlns="http://www.w3.org/2000/svg" height="40">
+      <path d="M20 2 C28 2 34 3.5 36 5 L36 24 C36 31 29 37 20 40 C11 37 4 31 4 24 L4 5 C6 3.5 12 2 20 2Z" fill="#2563EB"/>
+      <text x="20" y="25" font-family="Outfit,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">F</text>
+      <text x="48" y="26" font-family="Outfit,sans-serif" font-size="13" font-weight="600" fill="#fff" letter-spacing="1.5">FAST CAPITAL <tspan fill="#3B82F6">ADVANCE</tspan></text>
+    </svg>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('approach')">How It Works</a>
+    <a href="#" onclick="showPage('programs')">Programs</a>
+    <a href="#" onclick="showPage('tiers')">Qualifications</a>
+    <a href="#" onclick="showPage('faq')">FAQ</a>
+    <a href="#" onclick="showPage('contact')" class="nav-cta">Apply Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════ HOME ════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <section id="home-hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-mesh"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Direct MCA Funder — No Brokers, No Middlemen</p>
+      <h1 class="hero-title">Fast funding from a<br><em>direct source.</em></h1>
+      <p class="hero-sub">We're not a broker. We fund deals with our own capital — so you get faster approvals, lower costs, and one point of contact from application to funding.</p>
+      <div class="hero-btns">
+        <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+        <a href="#" onclick="showPage('approach')" class="btn btn-outline">How It Works</a>
+      </div>
+      <p class="hero-note"><span>✦</span> Same-day decisions · Funded directly · No broker fees</p>
+    </div>
+    <div class="hero-float-cards">
+      <div class="hero-card hero-card-primary">
+        <div class="hero-card-status">Approved</div>
+        <div class="hero-card-amount">$125,000</div>
+        <div class="hero-card-detail">Funded in 24 hours</div>
+        <div class="hero-card-bar"><div class="hero-card-bar-fill"></div></div>
+      </div>
+      <div class="hero-card hero-card-secondary">
+        <div class="hero-card-status">Factor Rate</div>
+        <div class="hero-card-amount">1.22</div>
+        <div class="hero-card-detail">No broker markup</div>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num" data-target="500" data-prefix="$" data-suffix="M+">$500M+</div><div class="stat-label">Funded</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="10000" data-suffix="+">10,000+</div><div class="stat-label">Deals Funded</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="24" data-suffix=" Hrs">24 Hrs</div><div class="stat-label">Avg. Funding Time</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="2012">2012</div><div class="stat-label">Direct Funder Since</div></div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section problem-section">
+    <div class="problem-grid">
+      <div class="reveal">
+        <p class="label">The Problem with Brokers</p>
+        <h2 class="h2">Why are you paying a middleman to access capital?</h2>
+        <div class="divider"></div>
+        <div class="problem-list">
+          <div class="problem-item"><div class="problem-item-icon">💸</div><div class="problem-item-text">Broker fees of 8–12 points buried in your deal — money that never reaches your business</div></div>
+          <div class="problem-item"><div class="problem-item-icon">🔄</div><div class="problem-item-text">Your file gets shopped to dozens of funders — every one of them pulling your information</div></div>
+          <div class="problem-item"><div class="problem-item-icon">⏳</div><div class="problem-item-text">Slow approvals while brokers juggle multiple funders to find someone who will say yes</div></div>
+          <div class="problem-item"><div class="problem-item-icon">📵</div><div class="problem-item-text">No accountability after funding — the broker disappears, and you're left on your own</div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="problem-answer">
+          <h3>Skip the middleman.<br>Work directly with the source.</h3>
+          <p>Fast Capital Advance funds deals with our own capital. No broker markup, no file shopping, no runaround. You talk to the people who make the decision — and we fund you directly.</p>
+          <span class="diff-tag">Direct Funder</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,0 C480,60 960,60 1440,0 L1440,60 L0,60 Z" fill="#1E293B"/></svg></div>
+
+  <!-- 3-Step Process -->
+  <section class="section phases-section">
+    <div class="phases-header reveal">
+      <p class="label">How It Works</p>
+      <h2 class="h2 light">Three steps. No middlemen.</h2>
+      <p class="body-text" style="color:rgba(255,255,255,.5);margin:0 auto;text-align:center">From application to funds in your account — here's exactly how it works when you go direct.</p>
+    </div>
+    <div class="phases-grid reveal">
+      <div class="phase-card">
+        <div class="phase-num">01</div>
+        <div class="phase-label">Step One</div>
+        <div class="phase-title">Apply</div>
+        <div class="phase-desc">Fill out a simple application and upload your most recent bank statements. It takes about 5 minutes. No hard credit pull, no obligation.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">02</div>
+        <div class="phase-label">Step Two</div>
+        <div class="phase-title">Same-Day Decision</div>
+        <div class="phase-desc">Our underwriting team reviews your application in-house — no waiting on third parties. Most businesses receive a decision within hours, not days.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">03</div>
+        <div class="phase-label">Step Three</div>
+        <div class="phase-title">Funds in Account</div>
+        <div class="phase-desc">Once approved and signed, funds are wired directly to your business account. Most deals are funded within 24 hours of approval.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <div class="cta-strip reveal">
+    <div class="cta-stripe-overlay"></div>
+    <h2>Stop paying broker fees.<br>Get funded directly.</h2>
+    <p>Apply in 5 minutes and get a same-day decision from a direct funder.</p>
+    <a href="#" onclick="showPage('contact')" class="btn btn-navy">Apply Now</a>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ════════════════════════════════ HOW IT WORKS ════════════════════════════════ -->
+<div class="page" id="page-approach">
+  <section class="approach-hero">
+    <p class="label">How It Works</p>
+    <h2 class="h2 light">Direct funding, start to finish</h2>
+    <p class="body-text">No brokers, no middlemen, no markup. Here's what it means to work with a direct funder.</p>
+  </section>
+
+  <div class="approach-grid">
+    <div class="approach-card reveal">
+      <div class="approach-icon">🏦</div>
+      <div class="approach-title">We Fund with Our Own Capital</div>
+      <div class="approach-text">Fast Capital Advance uses its own balance sheet to fund deals. That means no broker markup, no third-party approval chains, and no mystery about where your money is coming from.</div>
+      <div class="approach-note">You deal with the decision-maker — not a sales rep.</div>
+    </div>
+    <div class="approach-card reveal">
+      <div class="approach-icon">⚡</div>
+      <div class="approach-title">Same-Day Underwriting</div>
+      <div class="approach-text">Our underwriting team works in-house. We review your application, analyze your bank statements, and deliver a decision the same day — usually within hours. No waiting for a broker to shop your file.</div>
+      <div class="approach-note">Most deals are funded within 24 hours of approval.</div>
+    </div>
+    <div class="approach-card reveal">
+      <div class="approach-icon">🔍</div>
+      <div class="approach-title">Full Transparency</div>
+      <div class="approach-text">You see the full cost of your deal upfront — the factor rate, the total payback, the payment schedule. No hidden fees, no points buried in the rate, no surprises after you sign.</div>
+      <div class="approach-note">What we quote is what you pay. Period.</div>
+    </div>
+    <div class="approach-card reveal">
+      <div class="approach-icon">🤝</div>
+      <div class="approach-title">One Point of Contact</div>
+      <div class="approach-text">From your first call to your last payment, you work with the same team. Questions about your account? Call us directly. Need to discuss a renewal? We're here. No runaround.</div>
+      <div class="approach-note">Direct relationships, not call center handoffs.</div>
+    </div>
+  </div>
+
+  <section class="philosophy-section">
+    <div class="philosophy-inner">
+      <div class="reveal">
+        <p class="label">Why Direct Matters</p>
+        <div class="philosophy-quote">"When you eliminate the middleman, you eliminate the markup, the delays, and the finger-pointing. That's why we fund direct."</div>
+        <p class="body-text">Fast Capital Advance was built to give business owners a faster, more transparent way to access working capital — without the broker tax.</p>
+      </div>
+      <div class="reveal">
+        <h3 class="h2" style="font-size:1.5rem;margin-bottom:1.5rem">What you get with a direct funder</h3>
+        <div class="checklist">
+          <div class="check-item"><div class="check-dot">✓</div>No broker fees added to your rate</div>
+          <div class="check-item"><div class="check-dot">✓</div>Decisions made in-house — same day</div>
+          <div class="check-item"><div class="check-dot">✓</div>One team from application through payoff</div>
+          <div class="check-item"><div class="check-dot">✓</div>Full cost transparency before you sign</div>
+          <div class="check-item"><div class="check-dot">✓</div>Direct access to the people who funded your deal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,0 C480,60 960,60 1440,0 L1440,60 L0,60 Z" fill="rgba(37,99,235,0.95)"/></svg></div>
+
+  <div class="cta-strip">
+    <div class="cta-stripe-overlay"></div>
+    <h2>Ready to work with a direct funder?</h2>
+    <p>Apply in 5 minutes. Same-day decision. No broker fees.</p>
+    <a href="#" onclick="showPage('contact')" class="btn btn-navy">Apply Now</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ PROGRAMS ════════════════════════════════ -->
+<div class="page" id="page-programs">
+  <section class="programs-hero">
+    <p class="label">Capital Solutions</p>
+    <h2 class="h2 light">Available programs — explained honestly</h2>
+    <p class="body-text">Every program has a right time and a wrong time. We tell you both.</p>
+  </section>
+
+  <div class="programs-banner">
+    <div class="programs-banner-inner">
+      <strong>Direct Funder:</strong> All programs below — unless otherwise noted — are funded directly by Fast Capital Advance with our own capital. No broker fees, no middlemen.
+    </div>
+  </div>
+
+  <div class="programs-grid">
+    <div class="prog-card reveal">
+      <div class="prog-icon">📈</div>
+      <div class="prog-title">SBA & Long-Term Options</div>
+      <div class="prog-tag">Bankable · 5–25 Years</div>
+      <div class="prog-desc">Conventional-rate, long-term financing through SBA programs or bank partners. The goal line — the lower-cost capital every business should be working toward. <em style="color:var(--gold);font-size:.82rem">(Referral product — placed through lending partners)</em></div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>680+ FICO with clean history</li>
+        <li>2+ years in business</li>
+        <li>Stable, documented revenue</li>
+      </ul>
+      <div class="prog-not">Not Yet If</div>
+      <ul class="prog-list bad">
+        <li>Active MCAs or heavy stacking</li>
+        <li>Credit or banking issues unresolved</li>
+      </ul>
+    </div>
+    <div class="prog-card reveal">
+      <div class="prog-icon">🏦</div>
+      <div class="prog-title">Secured Lines of Credit</div>
+      <div class="prog-tag">Long-Term · Revolving</div>
+      <div class="prog-desc">Asset-backed revolving credit — draw what you need, repay, draw again. Lowest cost structure available outside of conventional bank financing.</div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>Businesses with 680+ FICO</li>
+        <li>Real estate or equipment assets</li>
+        <li>Businesses ready to move beyond MCAs</li>
+      </ul>
+      <div class="prog-not">Consider Carefully If</div>
+      <ul class="prog-list bad">
+        <li>Collateral is limited or encumbered</li>
+      </ul>
+    </div>
+    <div class="prog-card reveal">
+      <div class="prog-icon">📅</div>
+      <div class="prog-title">Monthly Payment Programs</div>
+      <div class="prog-tag">Stability · 12–36 Months</div>
+      <div class="prog-desc">Lower-frequency payment structure with reduced factor rates. Better for businesses with consistent monthly revenue and stronger credit profiles looking to protect cash flow.</div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>Established businesses with 650+ FICO</li>
+        <li>Businesses that bank monthly vs. daily</li>
+        <li>Clients transitioning from daily programs</li>
+      </ul>
+      <div class="prog-not">Consider Carefully If</div>
+      <ul class="prog-list bad">
+        <li>Significant negative days in statements</li>
+        <li>Heavy existing MCA stacking</li>
+      </ul>
+    </div>
+    <div class="prog-card reveal">
+      <div class="prog-icon">🔄</div>
+      <div class="prog-title">Revenue-Based Financing</div>
+      <div class="prog-tag">Flexibility · Ongoing</div>
+      <div class="prog-desc">Payments flex with your revenue — higher months pay more, slower months pay less. Reduces the strain of fixed payments during slower periods. Funded directly by Fast Capital Advance.</div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>Seasonal or cyclical businesses</li>
+        <li>Service-based companies</li>
+        <li>Businesses with variable monthly revenue</li>
+      </ul>
+      <div class="prog-not">Consider Carefully If</div>
+      <ul class="prog-list bad">
+        <li>Revenue is already declining</li>
+      </ul>
+    </div>
+    <div class="prog-card reveal">
+      <div class="prog-icon">🔗</div>
+      <div class="prog-title">Consolidation & Restructure</div>
+      <div class="prog-tag">Relief · Strategic</div>
+      <div class="prog-desc">Combine multiple active positions into a single, manageable payment. Reduce daily cash drain, improve approval ceiling, and create breathing room for growth.</div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>Businesses with 2+ active MCAs</li>
+        <li>Clients being crushed by daily debits</li>
+        <li>Anyone building toward bankable financing</li>
+      </ul>
+      <div class="prog-not">Not Always Available If</div>
+      <ul class="prog-list bad">
+        <li>Revenue has declined significantly</li>
+        <li>Defaults or UCC liens are present</li>
+      </ul>
+    </div>
+    <div class="prog-card reveal">
+      <div class="prog-icon">⚡</div>
+      <div class="prog-title">Short-Term Working Capital</div>
+      <div class="prog-tag">Speed · 3–12 Months</div>
+      <div class="prog-desc">Revenue-based advance structured against daily or weekly deposits. Fastest access to capital — typically 24 hours from approval to funding. Funded directly by Fast Capital Advance.</div>
+      <div class="prog-works">Best For</div>
+      <ul class="prog-list">
+        <li>Immediate operational gaps</li>
+        <li>Seasonal inventory needs</li>
+        <li>Time-sensitive opportunities</li>
+        <li>Businesses with strong daily revenue</li>
+      </ul>
+      <div class="prog-not">Consider Carefully If</div>
+      <ul class="prog-list bad">
+        <li>Cash flow is already tight</li>
+        <li>You are already 50%+ over leveraged</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="programs-note">
+    <div class="programs-note-box reveal">
+      <div class="note-icon">💡</div>
+      <div class="note-text">
+        <h4>We'll tell you which program fits — and fund it directly.</h4>
+        <p>As a direct funder, we don't need to shop your file. We review your application in-house, match you to the right program, and fund it with our own capital. If we're not the right fit, we'll tell you — no runaround.</p>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:3rem 5%">
+    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ CREDIT TIERS ════════════════════════════════ -->
+<div class="page" id="page-tiers">
+  <section class="tiers-hero">
+    <p class="label">Qualification Overview</p>
+    <h2 class="h2 light">What you can qualify for — at every credit tier</h2>
+    <p class="body-text">Credit is one factor. Revenue, deposits, and debt load matter just as much. Here's the honest breakdown.</p>
+  </section>
+
+  <section class="tiers-section">
+    <div class="tiers-grid tiers-grid-3">
+      <div class="tier-card reveal">
+        <div class="tier-header tier-a">
+          <div class="tier-badge">A</div>
+          <div class="tier-header-info"><h3>Tier A — Prime</h3><div class="tier-range">680–800 FICO · Strong Revenue · Clean History</div></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-options">
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:var(--gold)"></div>Monthly payment programs — 8–14% conventional</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:var(--gold)"></div>Secured line of credit options</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:var(--gold)"></div>SBA pathway (with qualifying revenue)</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:var(--gold)"></div>Lowest factor rates available</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:var(--gold)"></div>Highest approval ceilings</div>
+          </div>
+          <div class="tier-note">Best position for long-term financing. Our underwriting favors strong, consistent deposit patterns.</div>
+        </div>
+      </div>
+      <div class="tier-card reveal">
+        <div class="tier-header tier-b">
+          <div class="tier-badge">B</div>
+          <div class="tier-header-info"><h3>Tier B — Near-Prime</h3><div class="tier-range">600–679 FICO · Moderate Revenue</div></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-options">
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#4a9eff"></div>May qualify for monthly payment programs</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#4a9eff"></div>Factor rates starting from 1.17</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#4a9eff"></div>Hybrid bi-weekly structures available</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#4a9eff"></div>Consolidation structures may apply</div>
+          </div>
+          <div class="tier-note">With strong deposits and consistent revenue, Tier B applicants often qualify for competitive rates. Our underwriting weighs cash flow heavily.</div>
+        </div>
+      </div>
+      <div class="tier-card reveal">
+        <div class="tier-header tier-c">
+          <div class="tier-badge">C</div>
+          <div class="tier-header-info"><h3>Tier C — Cash Flow Based</h3><div class="tier-range">Below 600 FICO · Deposit-Driven Approval</div></div>
+        </div>
+        <div class="tier-body">
+          <div class="tier-options">
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#f59e0b"></div>Weekly payment programs only</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#f59e0b"></div>Daily payment programs</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#f59e0b"></div>Approval based primarily on deposit volume and frequency</div>
+            <div class="tier-opt"><div class="tier-opt-dot" style="background:#f59e0b"></div>No monthly programs available at this tier</div>
+          </div>
+          <div class="tier-note">Our underwriting team structures carefully here — only what cash flow can genuinely support. We will decline if the deal doesn't make sense for your business.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiers-disclaimer">
+      <div class="disclaimer-box reveal">
+        <strong>Important:</strong> Credit score is one data point — not the whole picture. Tier A starts at 680, Tier B covers 600–679, and Tier C applies below 600. Final qualification also depends on average monthly revenue, deposit frequency, number of negative days, and existing MCA exposure. A 670 FICO with poor deposit patterns may qualify for less than a 610 FICO with strong, consistent deposits. Our underwriting analyzes all of these before presenting any options.
+      </div>
+    </div>
+  </section>
+
+  <section class="approval-factors">
+    <div class="section-inner">
+      <p class="label" style="text-align:center">The Full Picture</p>
+      <h2 class="h2 light" style="text-align:center;margin-bottom:0">What our underwriting looks at</h2>
+      <div class="factors-grid">
+        <div class="factor-card reveal"><div class="factor-icon">📊</div><div class="factor-title">Average Monthly Revenue</div><div class="factor-text">The foundation of every underwriting decision. We typically fund 75–150% of monthly revenue depending on tier and program type.</div></div>
+        <div class="factor-card reveal"><div class="factor-icon">📅</div><div class="factor-title">Deposit Frequency</div><div class="factor-text">How often money comes in matters as much as how much. Consistent daily deposits signal a healthier business than sporadic large ones.</div></div>
+        <div class="factor-card reveal"><div class="factor-icon">❌</div><div class="factor-title">Negative Days</div><div class="factor-text">Days with a negative balance are a major red flag. More than 5–7 per month significantly reduces options and approval ceiling.</div></div>
+        <div class="factor-card reveal"><div class="factor-icon">🏋️</div><div class="factor-title">Existing MCA Exposure</div><div class="factor-text">Active positions reduce approval ceilings. Heavy stacking is one of the fastest ways to limit your funding options.</div></div>
+        <div class="factor-card reveal"><div class="factor-icon">💳</div><div class="factor-title">FICO & Credit History</div><div class="factor-text">Personal credit affects rate and program access — but can be offset by strong revenue and deposit patterns.</div></div>
+        <div class="factor-card reveal"><div class="factor-icon">📐</div><div class="factor-title">Approval Ceiling</div><div class="factor-text">The maximum we'll extend based on all above factors combined. We calculate this before structuring — so you're never over-leveraged from day one.</div></div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:3rem 5%;background:var(--white)">
+    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ FAQ ════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <section class="faq-hero">
+    <p class="label">Frequently Asked Questions</p>
+    <h2 class="h2 light">Straight answers about direct funding</h2>
+    <p class="body-text">No jargon, no runaround. Here's what you need to know about working with a direct funder.</p>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-grid">
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">Are you a direct funder or a broker?</div>
+        <div class="faq-a">We are a direct funder. Fast Capital Advance funds deals with our own capital. We are not a broker, and we do not shop your file to third parties. You deal directly with the company that makes the funding decision and sends the money.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">How fast can I get funded?</div>
+        <div class="faq-a">Most businesses receive a decision the same day they apply. Once approved and signed, funds are typically wired within 24 hours. Because we fund in-house, there's no waiting on third-party approvals or broker coordination.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">What does it cost? Are there broker fees?</div>
+        <div class="faq-a">There are zero broker fees — because there's no broker. The rate we quote you is the rate you pay. We show you the factor rate, total payback amount, and payment schedule upfront before you sign anything. No hidden points, no surprises.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">What do I need to apply?</div>
+        <div class="faq-a">A simple application and your most recent 3 months of bank statements. That's it to get started. No hard credit pull at application. We may request additional documentation depending on the program and amount, but we'll tell you upfront.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">What if I already have active MCA positions?</div>
+        <div class="faq-a">We work with businesses that have existing positions. Depending on your revenue, deposit patterns, and current exposure, we may be able to consolidate your positions into a single, more manageable payment — or fund alongside existing advances. We'll review your situation and tell you what's realistically available.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">How is this different from working with a broker?</div>
+        <div class="faq-a">Brokers act as middlemen — they take your application, shop it to funders, and add their own markup (typically 8–12 points) to your rate. With us, you go straight to the source. No markup, no file shopping, no waiting for a broker to find someone willing to fund you. One application, one decision-maker, one relationship.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">What are the minimum qualifications?</div>
+        <div class="faq-a">Generally, we look for at least 6 months in business, $15,000+ in monthly revenue, and an active business bank account. Credit score is a factor but not the only one — strong deposits and consistent revenue can offset lower scores. Apply and we'll tell you exactly where you stand.</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">Who do I contact if I have questions after funding?</div>
+        <div class="faq-a">The same team that funded your deal. Because we're the direct funder, you have a direct line to the people managing your account. No calling a broker who has to call the funder who has to call you back. One phone call, one team.</div>
+      </div>
+    </div>
+  </section>
+  <div style="text-align:center;padding:3rem 5%">
+    <p style="font-size:.9rem;color:var(--gray);margin-bottom:1.5rem">Have a question we didn't cover? We'll give you a straight answer.</p>
+    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ APPLY NOW ════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <section class="contact-hero">
+    <p class="label">Apply Now</p>
+    <h2 class="h2 light">Apply in 5 minutes</h2>
+    <p class="body-text">Fill out the form below and our underwriting team will review your application. Most businesses receive a same-day decision.</p>
+  </section>
+
+  <section class="contact-section">
+    <div style="max-width:680px;margin:0 auto">
+      <div class="reveal">
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Business Name</label><input class="form-input" type="text" placeholder="Acme Inc." required/></div>
+            <div class="form-group"><label class="form-label">Owner Name</label><input class="form-input" type="text" placeholder="Jane Smith" required/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="(212) 555-0100" required/></div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="jane@acmeinc.com" required/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Monthly Revenue (approximate)</label>
+              <select class="form-select">
+                <option value="">Select range…</option>
+                <option>Under $15,000</option>
+                <option>$15,000 – $50,000</option>
+                <option>$50,000 – $100,000</option>
+                <option>$100,000 – $250,000</option>
+                <option>$250,000 – $500,000</option>
+                <option>Over $500,000</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time in Business</label>
+              <select class="form-select">
+                <option value="">Select…</option>
+                <option>Less than 6 months</option>
+                <option>6–12 months</option>
+                <option>1–2 years</option>
+                <option>2–5 years</option>
+                <option>5+ years</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amount Requested</label>
+            <select class="form-select">
+              <option value="">Select range…</option>
+              <option>$5,000 – $25,000</option>
+              <option>$25,000 – $50,000</option>
+              <option>$50,000 – $100,000</option>
+              <option>$100,000 – $250,000</option>
+              <option>$250,000 – $500,000</option>
+              <option>$500,000+</option>
+            </select>
+          </div>
+
+          <div class="upload-box" onclick="document.getElementById('file-input').click()">
+            <div class="upload-icon">📁</div>
+            <div class="upload-title">Upload Bank Statements</div>
+            <div class="upload-sub">3 most recent months · PDF or image</div>
+            <input type="file" id="file-input" style="display:none" multiple accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this)"/>
+            <div id="upload-status" style="margin-top:1rem;font-size:.82rem;color:var(--gold)"></div>
+          </div>
+
+          <div class="form-group"><label class="form-label">Notes (optional)</label><textarea class="form-textarea" placeholder="Tell us about your current situation, any existing positions, or questions you have…"></textarea></div>
+          <button type="submit" class="form-submit">Submit Application</button>
+          <div class="secure-note"><span>🔒</span><span>Secure · No obligation · Same-day response</span></div>
+        </form>
+
+        <div class="privacy-box">
+          <p>By submitting, you agree that your information will be used solely to evaluate your application. We do not sell or share your information. Fast Capital Advance is a direct funder — your application is reviewed in-house and is never shared with third-party brokers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════ FOOTER ════════════════════════════════ -->
+<footer id="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" onclick="showPage('home')" style="display:inline-flex;align-items:center;margin-bottom:1rem">
+        <svg viewBox="0 0 270 40" xmlns="http://www.w3.org/2000/svg" height="36">
+          <path d="M20 2 C28 2 34 3.5 36 5 L36 24 C36 31 29 37 20 40 C11 37 4 31 4 24 L4 5 C6 3.5 12 2 20 2Z" fill="#2563EB"/>
+          <text x="20" y="25" font-family="Outfit,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">F</text>
+          <text x="48" y="26" font-family="Outfit,sans-serif" font-size="13" font-weight="600" fill="#1E293B" letter-spacing="1.5">FAST CAPITAL <tspan fill="#2563EB">ADVANCE</tspan></text>
+        </svg>
+      </a>
+      <p class="footer-tagline">Direct MCA funder for established businesses. No brokers, no middlemen — just fast, transparent capital from a direct source.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('approach')">How It Works</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#" onclick="showPage('programs')">Programs</a>
+      <a href="#" onclick="showPage('tiers')">Qualifications</a>
+      <a href="#" onclick="showPage('faq')">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:8005550100">(800) 555-0100</a>
+      <a href="mailto:info@fastcapitaladvance.com">info@fastcapitaladvance.com</a>
+      <a href="#" onclick="showPage('contact')">Apply Now</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2026 Fast Capital Advance. All rights reserved.</div>
+    <div class="footer-disc">Fast Capital Advance is a direct funder of merchant cash advances and revenue-based financing. All transactions subject to approval, underwriting review, and applicable terms. Not all applicants will qualify.</div>
+  </div>
+</footer>
+
+<script>
+// ── PAGE ROUTING ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  // Set active state on the clicked nav link
+  const pageMap = {home:0, approach:1, programs:2, tiers:3, faq:4, contact:5};
+  const idx = pageMap[id];
+  if (idx !== undefined) {
+    const links = document.querySelectorAll('.nav-links a');
+    if (links[idx]) links[idx].classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  // close mobile menu
+  document.getElementById('nav-links').classList.remove('open');
+  triggerReveal();
+}
+
+// ── MOBILE MENU ──
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+// ── SCROLL REVEAL ──
+function triggerReveal() {
+  setTimeout(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e,i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 120);
+        }
+      });
+    }, {threshold: 0.08});
+    document.querySelectorAll('.page.active .reveal:not(.visible)').forEach(el => observer.observe(el));
+  }, 50);
+}
+// Set Home as active on initial load
+document.querySelector('.nav-links a').classList.add('active');
+triggerReveal();
+
+// ── COUNTER ANIMATION ──
+function animateCounters() {
+  const nums = document.querySelectorAll('.stat-num[data-target]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = '1';
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 2000;
+        const start = performance.now();
+        function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+        function formatNum(n) {
+          if (n >= 1000 && target >= 10000) return n.toLocaleString();
+          return n.toString();
+        }
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const value = Math.round(easeOutCubic(progress) * target);
+          el.textContent = prefix + formatNum(value) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+    });
+  }, {threshold: 0.3});
+  nums.forEach(n => observer.observe(n));
+}
+animateCounters();
+
+// ── FAQ TOGGLE ──
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
+// ── FILE UPLOAD ──
+function handleUpload(input) {
+  const files = Array.from(input.files);
+  const status = document.getElementById('upload-status');
+  if (files.length > 0) {
+    status.textContent = `✓ ${files.length} file${files.length > 1 ? 's' : ''} selected: ${files.map(f => f.name).join(', ')}`;
+  }
+}
+
+// ── CONTACT FORM ──
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Application Submitted — We\'ll respond same day';
+  btn.style.background = '#2563EB';
+  btn.style.color = '#fff';
+  btn.disabled = true;
+}
+
+// ── NAV SHRINK ──
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  const scrolled = window.scrollY > 60;
+  nav.style.padding = scrolled ? '.8rem 5%' : '1.2rem 5%';
+  nav.classList.toggle('scrolled', scrolled);
+});
+</script>
+</body>
+</html>
