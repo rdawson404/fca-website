@@ -408,7 +408,32 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
   .hamburger{display:flex}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
   .problem-grid,.phases-grid,.approach-grid,.programs-grid,.tiers-grid,.tiers-grid-3,.faq-grid,.philosophy-inner,.footer-top,.form-row{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr 1fr}
+
+  /* Hero fix — stop overlap */
+  #home-hero{min-height:auto;padding-top:100px;padding-bottom:0}
+  .stats-bar{position:relative}
+  .stat-num{font-size:1.5rem}
+  .stat-item{padding:1rem 5%}
+  .hero-content{padding-bottom:2.5rem}
+
+  /* Text sizing */
+  .hero-title{font-size:clamp(2rem,8vw,2.8rem)}
+  .hero-sub{font-size:.92rem}
+
+  /* Spacing */
+  .section{padding:3.5rem 5%}
+  .phase-card{padding:2rem 1.5rem}
+  .prog-card{padding:2rem 1.5rem}
+  .approach-card{padding:2rem}
+
+  /* Programs note */
+  .programs-note-box{flex-direction:column}
+
+  /* Footer */
+  .footer-top{grid-template-columns:1fr}
+
+  /* FAQ items */
+  .faq-q{padding:1.2rem 1.5rem;font-size:.95rem}
 }
 
 /* ── INQUIRY FORM ── */
