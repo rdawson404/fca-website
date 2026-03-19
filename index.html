@@ -416,7 +416,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
 
 <!-- ── NAV ── -->
 <nav id="main-nav">
-  <a class="logo" href="#" onclick="showPage('home')" style="display:flex;align-items:center">
+  <a class="logo" href="#home" onclick="showPage('home'); return false;" style="display:flex;align-items:center">
     <svg viewBox="0 0 270 40" xmlns="http://www.w3.org/2000/svg" height="40">
       <path d="M20 2 C28 2 34 3.5 36 5 L36 24 C36 31 29 37 20 40 C11 37 4 31 4 24 L4 5 C6 3.5 12 2 20 2Z" fill="#2563EB"/>
       <text x="20" y="25" font-family="Outfit,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">F</text>
@@ -424,12 +424,12 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     </svg>
   </a>
   <div class="nav-links" id="nav-links">
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('approach')">How It Works</a>
-    <a href="#" onclick="showPage('programs')">Programs</a>
-    <a href="#" onclick="showPage('tiers')">Qualifications</a>
-    <a href="#" onclick="showPage('faq')">FAQ</a>
-    <a href="#" onclick="showPage('contact')" class="nav-cta">Apply Now</a>
+    <a href="#home" onclick="showPage('home'); return false;">Home</a>
+    <a href="#approach" onclick="showPage('approach'); return false;">How It Works</a>
+    <a href="#programs" onclick="showPage('programs'); return false;">Programs</a>
+    <a href="#tiers" onclick="showPage('tiers'); return false;">Qualifications</a>
+    <a href="#faq" onclick="showPage('faq'); return false;">FAQ</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="nav-cta">Apply Now</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -448,8 +448,8 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
       <h1 class="hero-title">Fast funding from a<br><em>direct source.</em></h1>
       <p class="hero-sub">We're not a broker. We fund deals with our own capital — so you get faster approvals, lower costs, and one point of contact from application to funding.</p>
       <div class="hero-btns">
-        <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
-        <a href="#" onclick="showPage('approach')" class="btn btn-outline">How It Works</a>
+        <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-gold">Apply Now</a>
+        <a href="#approach" onclick="showPage('approach'); return false;" class="btn btn-outline">How It Works</a>
       </div>
       <p class="hero-note"><span>✦</span> Same-day decisions · Funded directly · No broker fees</p>
     </div>
@@ -534,7 +534,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     <div class="cta-stripe-overlay"></div>
     <h2>Stop paying broker fees.<br>Get funded directly.</h2>
     <p>Apply in 5 minutes and get a same-day decision from a direct funder.</p>
-    <a href="#" onclick="showPage('contact')" class="btn btn-navy">Apply Now</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-navy">Apply Now</a>
   </div>
 
 </div><!-- /home -->
@@ -600,7 +600,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     <div class="cta-stripe-overlay"></div>
     <h2>Ready to work with a direct funder?</h2>
     <p>Apply in 5 minutes. Same-day decision. No broker fees.</p>
-    <a href="#" onclick="showPage('contact')" class="btn btn-navy">Apply Now</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-navy">Apply Now</a>
   </div>
 </div>
 
@@ -732,7 +732,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     </div>
   </div>
   <div style="text-align:center;padding:3rem 5%">
-    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-gold">Apply Now</a>
   </div>
 </div>
 
@@ -816,7 +816,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     </div>
   </section>
   <div style="text-align:center;padding:3rem 5%;background:var(--white)">
-    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-gold">Apply Now</a>
   </div>
 </div>
 
@@ -866,7 +866,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
   </section>
   <div style="text-align:center;padding:3rem 5%">
     <p style="font-size:.9rem;color:var(--gray);margin-bottom:1.5rem">Have a question we didn't cover? We'll give you a straight answer.</p>
-    <a href="#" onclick="showPage('contact')" class="btn btn-gold">Apply Now</a>
+    <a href="#contact" onclick="showPage('contact'); return false;" class="btn btn-gold">Apply Now</a>
   </div>
 </div>
 
@@ -901,7 +901,7 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
 <footer id="site-footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#" onclick="showPage('home')" style="display:inline-flex;align-items:center;margin-bottom:1rem">
+      <a href="#home" onclick="showPage('home'); return false;" style="display:inline-flex;align-items:center;margin-bottom:1rem">
         <svg viewBox="0 0 270 40" xmlns="http://www.w3.org/2000/svg" height="36">
           <path d="M20 2 C28 2 34 3.5 36 5 L36 24 C36 31 29 37 20 40 C11 37 4 31 4 24 L4 5 C6 3.5 12 2 20 2Z" fill="#2563EB"/>
           <text x="20" y="25" font-family="Outfit,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">F</text>
@@ -912,20 +912,20 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="#" onclick="showPage('home')">Home</a>
-      <a href="#" onclick="showPage('approach')">How It Works</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#approach" onclick="showPage('approach'); return false;">How It Works</a>
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
-      <a href="#" onclick="showPage('programs')">Programs</a>
-      <a href="#" onclick="showPage('tiers')">Qualifications</a>
-      <a href="#" onclick="showPage('faq')">FAQ</a>
+      <a href="#programs" onclick="showPage('programs'); return false;">Programs</a>
+      <a href="#tiers" onclick="showPage('tiers'); return false;">Qualifications</a>
+      <a href="#faq" onclick="showPage('faq'); return false;">FAQ</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <a href="tel:8005550100">(800) 555-0100</a>
       <a href="mailto:info@fastcapitaladvance.com">info@fastcapitaladvance.com</a>
-      <a href="#" onclick="showPage('contact')">Apply Now</a>
+      <a href="#contact" onclick="showPage('contact'); return false;">Apply Now</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -936,11 +936,13 @@ footer::before{content:'';position:absolute;top:-100px;left:5%;width:300px;heigh
 
 <script>
 // ── PAGE ROUTING ──
-function showPage(id) {
+let _routing = false;
+function showPage(id, pushState) {
+  if (_routing) return;
+  _routing = true;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  // Set active state on the clicked nav link
   const pageMap = {home:0, approach:1, programs:2, tiers:3, faq:4, contact:5};
   const idx = pageMap[id];
   if (idx !== undefined) {
@@ -948,9 +950,10 @@ function showPage(id) {
     if (links[idx]) links[idx].classList.add('active');
   }
   window.scrollTo({top:0,behavior:'smooth'});
-  // close mobile menu
   document.getElementById('nav-links').classList.remove('open');
+  if (pushState !== false) history.pushState(null, '', '#' + id);
   triggerReveal();
+  _routing = false;
 }
 
 // ── MOBILE MENU ──
@@ -971,9 +974,15 @@ function triggerReveal() {
     document.querySelectorAll('.page.active .reveal:not(.visible)').forEach(el => observer.observe(el));
   }, 50);
 }
-// Set Home as active on initial load
-document.querySelector('.nav-links a').classList.add('active');
-triggerReveal();
+// Handle back/forward navigation
+window.addEventListener('popstate', () => {
+  const page = location.hash.slice(1) || 'home';
+  showPage(page, false);
+});
+// Navigate to correct page on initial load
+const _initPage = location.hash.slice(1) || 'home';
+showPage(_initPage, false);
+if (!location.hash) history.replaceState(null, '', '#home');
 
 // ── COUNTER ANIMATION ──
 function animateCounters() {
